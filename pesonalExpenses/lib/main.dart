@@ -36,10 +36,11 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Card(
-              child: Text('Chart'),
+              child: Container(width: 100, child: Text('Chart')),
             ),
             Card(
               child: Text('List of TX'),
