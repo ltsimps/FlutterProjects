@@ -55,6 +55,11 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+            ...widget.transactions.map((tx) {
+              return Card(
+                child: Text(tx.title),
+              );
+            }).toList(),
             Card(
               child: Container(width: 100, child: Text('Chart')),
             ),
