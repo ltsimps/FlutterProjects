@@ -28,6 +28,12 @@ class MyHomePage extends StatefulWidget {
       amount: 69.99,
       date: DateTime.now(),
     ),
+    Transaction(
+      id: 't2',
+      title: ' Weekly Groceries ',
+      amount: 16.53,
+      date: DateTime.now(),
+    ),
   ];
 
   MyHomePage({Key key, this.title}) : super(key: key);
