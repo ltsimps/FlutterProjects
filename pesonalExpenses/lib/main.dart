@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:pesonalExpenses/transaction.dart';
 
 void main() {
@@ -55,6 +56,9 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+            Card(
+              child: Container(width: 100, child: Text('Chart')),
+            ),
             ...widget.transactions.map((tx) {
               return Card(
                   child: Row(
@@ -87,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                       Text(
-                        tx.date.toString(),
+                        DateFormat('yyyy-MM-dd').format(tx.date),
                         style: TextStyle(color: Colors.grey),
                       )
                     ],
@@ -95,12 +99,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ));
             }).toList(),
-            Card(
-              child: Container(width: 100, child: Text('Chart')),
-            ),
-            Card(
-              child: Text('List of TX'),
-            ),
           ],
         ),
       ),
