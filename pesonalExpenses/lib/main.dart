@@ -79,6 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         tx.title,
@@ -87,6 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       Text(
                         tx.date.toString(),
+                        style: TextStyle(color: Colors.grey),
                       )
                     ],
                   )
