@@ -62,6 +62,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   Container(
                     child: Text(tx.amount.toString()),
                   ),
+                  Column(
+                    children: [Text(tx.title), Text(tx.title)],
+                  )
                 ],
               ));
             }).toList(),
