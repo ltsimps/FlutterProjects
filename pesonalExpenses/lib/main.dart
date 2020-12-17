@@ -57,8 +57,13 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             ...widget.transactions.map((tx) {
               return Card(
-                child: Text(tx.title),
-              );
+                  child: Row(
+                children: [
+                  Container(
+                    child: Text(tx.amount.toString()),
+                  ),
+                ],
+              ));
             }).toList(),
             Card(
               child: Container(width: 100, child: Text('Chart')),
