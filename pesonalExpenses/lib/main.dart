@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Personal Expenses App'),
     );
   }
 }
@@ -53,11 +53,39 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Card(
-              child: Container(width: 100, child: Text('Chart')),
+              child: Container(
+                width: double.infinity,
+                child: Card(
+                  color: Colors.blue,
+                  elevation: 5,
+                  child: Text('Chart'),
+                ),
+              ),
+            ),
+            Card(
+              elevation: 5,
+              child: Container(
+                // margin: EdgeInsets.all(100),
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    TextField(
+                      decoration: InputDecoration(labelText: 'Title'),
+                    ),
+                    TextField(
+                      decoration: InputDecoration(labelText: 'Amount'),
+                    ),
+                    FlatButton(
+                      onPressed: null,
+                      child: Text('Add Transaction'),
+                    ),
+                  ],
+                ),
+              ),
             ),
             ...widget.transactions.map((tx) {
               return Card(
@@ -91,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                       Text(
-                        DateFormat('yyyy-MM-dd').format(tx.date),
+                        DateFormat.yMMMd().format(tx.date),
                         style: TextStyle(color: Colors.grey),
                       )
                     ],
