@@ -39,6 +39,10 @@ class MyHomePage extends StatefulWidget {
 
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
+  // String titleInput;
+  // String amountInput;
+  final titleController = TextEditingController();
+  final amountController = TextEditingController();
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -75,12 +79,23 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     TextField(
                       decoration: InputDecoration(labelText: 'Title'),
+                      controller: widget.titleController,
+                      // onChanged: (value) {
+                      //   widget.titleInput = value;
+                      // },
                     ),
                     TextField(
                       decoration: InputDecoration(labelText: 'Amount'),
+                      controller: widget.amountController,
+                      // onChanged: (value) {
+                      //   widget.amountInput = value;
+                      // },
                     ),
                     FlatButton(
-                      onPressed: null,
+                      onPressed: () {
+                        print(widget.titleController.text);
+                        print(widget.amountController.text);
+                      },
                       child: Text('Add Transaction'),
                     ),
                   ],
