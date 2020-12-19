@@ -12,7 +12,6 @@ class NewTransaction extends StatelessWidget {
     return Card(
       elevation: 5,
       child: Container(
-        // margin: EdgeInsets.all(100),
         padding: EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -35,6 +34,8 @@ class NewTransaction extends StatelessWidget {
               onPressed: () {
                 print(titleController.text);
                 print(amountController.text);
+                addTransaction(
+                    titleController.text, double.parse(amountController.text));
               },
               child: Text('Add Transaction'),
             ),

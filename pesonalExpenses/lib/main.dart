@@ -24,9 +24,6 @@ class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
 
-  // final titleController = TextEditingController();
-  // final amountController = TextEditingController();
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -38,9 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: UserTransActions(),
-      ),
+      body: SingleChildScrollView(child: UserTransActions()),
     );
   }
 }
