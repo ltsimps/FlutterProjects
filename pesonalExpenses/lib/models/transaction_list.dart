@@ -8,6 +8,7 @@ class TransactionList extends StatefulWidget {
 }
 
 class _TransactionListState extends State<TransactionList> {
+  Function addTransaction;
   final List<Transaction> _userTransaction = [
     Transaction(
       id: 't1',
