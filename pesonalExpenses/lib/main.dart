@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:pesonalExpenses/transaction.dart';
+import 'package:pesonalExpenses/models/transaction_list.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,25 +21,9 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  final List<Transaction> transactions = [
-    Transaction(
-      id: 't1',
-      title: 'New shoes',
-      amount: 69.99,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: ' Weekly Groceries ',
-      amount: 16.53,
-      date: DateTime.now(),
-    ),
-  ];
-
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
-  // String titleInput;
-  // String amountInput;
+
   final titleController = TextEditingController();
   final amountController = TextEditingController();
 
@@ -102,46 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-            ...widget.transactions.map((tx) {
-              return Card(
-                  child: Row(
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    margin: EdgeInsets.symmetric(
-                      vertical: 10,
-                      horizontal: 15,
-                    ),
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                      color: Colors.purple,
-                      width: 2,
-                    )),
-                    child: Text(
-                      '\$${tx.amount}',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Colors.purple),
-                    ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        tx.title,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 15),
-                      ),
-                      Text(
-                        DateFormat.yMMMd().format(tx.date),
-                        style: TextStyle(color: Colors.grey),
-                      )
-                    ],
-                  )
-                ],
-              ));
-            }).toList(),
+            TransactionList(),
           ],
         ),
       ),
