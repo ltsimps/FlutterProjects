@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pesonalExpenses/models/transaction_list.dart';
-import 'package:pesonalExpenses/widgets/new_transaction.dart';
+import 'package:pesonalExpenses/widgets/user_transaction.dart';
 
 void main() {
   runApp(MyApp());
@@ -40,13 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            NewTransaction(),
-            TransactionList(),
-          ],
-        ),
+        child: UserTransActions(),
       ),
     );
   }
