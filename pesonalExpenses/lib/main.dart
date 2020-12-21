@@ -34,8 +34,17 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: [IconButton(icon: Icon(Icons.add), onPressed: null)],
       ),
-      body: SingleChildScrollView(child: UserTransActions()),
+      body: SingleChildScrollView(
+        child: UserTransActions(),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          Icons.add,
+        ),
+        onPressed: () {},
+      ),
     );
   }
 }
