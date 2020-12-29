@@ -23,6 +23,21 @@ class MyApp extends StatelessWidget {
 class NewYearsCountdownScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: Landscape(),
+    );
+  }
+}
+
+class Landscape extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        _buildSky(),
+        _buildStars(),
+        _buildMontains(),
+      ],
+    );
   }
 }
