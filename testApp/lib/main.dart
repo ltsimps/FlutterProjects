@@ -34,17 +34,15 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Card(
-              child: Text("Media Place Holder"),
-            ),
-            ChartLine(rate: 0.5, title: "Streak"),
-            ChartLine(rate: 0.5, title: "pushups"),
-          ],
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Card(
+            child: Text("Media Place Holder"),
+          ),
+          ChartLine(rate: 0.5, title: "Streak"),
+          ChartLine(rate: 0.5, title: "pushups"),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: null,
@@ -75,6 +73,7 @@ class ChartLine extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       final lineWidget = constraints.maxWidth * rate;
+
       return Padding(
         padding: const EdgeInsets.only(bottom: 10.0),
         child: Column(
