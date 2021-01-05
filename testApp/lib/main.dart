@@ -42,6 +42,10 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           ChartLine(rate: 0.5, title: "Streak"),
           ChartLine(rate: 0.5, title: "pushups"),
+          ChartLine(rate: 0.5, title: "Streak"),
+          ChartLine(rate: 0.5, title: "pushups"),
+          ChartLine(rate: 0.5, title: "Streak"),
+          ChartLine(rate: 0.5, title: "pushups"),
         ],
       ),
       floatingActionButton: FloatingActionButton(
