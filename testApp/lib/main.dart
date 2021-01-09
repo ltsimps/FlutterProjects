@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -44,6 +45,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,6 +64,10 @@ class _MyHomePageState extends State<MyHomePage> {
           ChartLine(rate: 0.5, title: "Streak"),
           ChartLine(rate: 0.5, title: "pushups"),
           ChartLine(rate: 0.5, title: "Streak"),
+          ChartLine(rate: 0.5, title: "pushups"),
+          ChartLine(rate: 0.5, title: "pushups"),
+          ChartLine(rate: 0.5, title: "pushups"),
+          ChartLine(rate: 0.5, title: "pushups"),
           ChartLine(rate: 0.5, title: "pushups"),
         ],
       ),
