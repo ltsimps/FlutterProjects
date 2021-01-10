@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:testApp/widgets/addTaskWidget.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,6 +48,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
+  final currentTask = AddTask(name: "Hello World");
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,19 +67,18 @@ class _MyHomePageState extends State<MyHomePage> {
           ChartLine(rate: 0.5, title: "Streak"),
           ChartLine(rate: 0.5, title: "pushups"),
           ChartLine(rate: 0.5, title: "Streak"),
-          ChartLine(rate: 0.5, title: "pushups"),
-          ChartLine(rate: 0.5, title: "pushups"),
-          ChartLine(rate: 0.5, title: "pushups"),
-          ChartLine(rate: 0.5, title: "pushups"),
-          ChartLine(rate: 0.5, title: "pushups"),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: null,
+        onPressed: createTask(),
         tooltip: 'Firebase',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  createTask() {
+    currentTask.addTask();
   }
 }
 
