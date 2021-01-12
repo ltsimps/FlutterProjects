@@ -50,8 +50,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final currentTask = AddTask(name: "Hello World");
 
-  
-  Stream listOfTask = FirebaseFirestore.instance.collection('tasks').snapshots()
+  CollectionReference listOfTask =
+      FirebaseFirestore.instance.collection('tasks');
 
   @override
   Widget build(BuildContext context) {
@@ -59,9 +59,22 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body:StreamBuilder(
-        stream: ta,
-      ), 
+      body: StreamBuilder<QuerySnapshot>(
+        stream: listOfTask.snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return Text("Something went Wrong");
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CircularProgressIndicator();
+          }
+          return ListView(
+            children: snapshot.data.docs.map((document) {
+              return ChartLine(rate: 0.5, title: document.data()['name']);
+            }).toList(),
+          );
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: createTask(),
         tooltip: 'Firebase',
