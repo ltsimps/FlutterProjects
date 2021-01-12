@@ -50,25 +50,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final currentTask = AddTask(name: "Hello World");
 
+  
+  Stream listOfTask = FirebaseFirestore.instance.collection('tasks').snapshots()
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Card(
-            child: Text("Media Place Holder"),
-          ),
-          ChartLine(rate: 0.5, title: "Streak"),
-          ChartLine(rate: 0.5, title: "pushups"),
-          ChartLine(rate: 0.5, title: "Streak"),
-          ChartLine(rate: 0.5, title: "pushups"),
-          ChartLine(rate: 0.5, title: "Streak"),
-        ],
-      ),
+      body:StreamBuilder(
+        stream: ta,
+      ), 
       floatingActionButton: FloatingActionButton(
         onPressed: createTask(),
         tooltip: 'Firebase',
