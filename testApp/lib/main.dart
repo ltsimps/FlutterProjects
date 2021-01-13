@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +72,8 @@ class _MyHomePageState extends State<MyHomePage> {
           }
           return ListView(
             children: snapshot.data.docs.map((document) {
-              return ChartLine(rate: 0.5, title: document.data()['name']);
+              return ChartLine(
+                  rate: Random().nextDouble(), title: document.data()['name']);
             }).toList(),
           );
         },
