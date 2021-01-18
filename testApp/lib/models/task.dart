@@ -3,4 +3,5 @@ class Task {
   String name;
   String description;
   int id;
+  int streakCount;
 }

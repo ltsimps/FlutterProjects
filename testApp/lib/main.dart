@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:testApp/widgets/addTaskWidget.dart';
 
+import 'models/task.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -15,9 +17,13 @@ void main() {
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  CollectionReference listOfTask =
+      FirebaseFirestore.instance.collection('tasks');
 
   @override
   Widget build(BuildContext context) {
+    //final taskProvider = StreamProvider<Task>(listOfTask.snapshots());
+    //context.read(taskProvider);
     return FutureBuilder(
         future: _initialization,
         builder: (context, snapshot) {
@@ -31,7 +37,7 @@ class MyApp extends StatelessWidget {
                 primarySwatch: Colors.blue,
                 visualDensity: VisualDensity.adaptivePlatformDensity,
               ),
-              home: MyHomePage(title: 'FlutterFire Experiments'),
+              home: MyHomePage(title: 'Finishi'),
             );
           }
 
@@ -72,6 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return CircularProgressIndicator();
           }
+          //Success
           return ListView(
             children: snapshot.data.docs.map((document) {
               return ChartLine(
