@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:testApp/widgets/addTaskWidget.dart';
 
-import 'models/task.dart';
-
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  //Worked put seems like a hack when we have future builder
+  await Firebase.initializeApp();
 
   runApp(ProviderScope(child: MyApp()));
 }
@@ -17,12 +17,13 @@ void main() {
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-  CollectionReference listOfTask =
+
+  final CollectionReference listOfTask =
       FirebaseFirestore.instance.collection('tasks');
 
   @override
   Widget build(BuildContext context) {
-    //final taskProvider = StreamProvider<Task>(listOfTask.snapshots());
+    final taskProvider = StreamProvider(listOfTask.snapshots());
     //context.read(taskProvider);
     return FutureBuilder(
         future: _initialization,
