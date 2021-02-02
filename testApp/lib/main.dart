@@ -19,6 +19,11 @@ final taskProvider = StreamProvider((ref) {
   return FirebaseFirestore.instance.collection('tasks').snapshots();
 });
 
+int value = Random().nextInt(100);
+int getRandomNumber() {
+  return value.round().toInt();
+}
+
 class MyApp extends StatelessWidget {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
@@ -57,7 +62,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  final currentTask = AddTask(name: "Hello World");
+  final currentTask =
+      AddTask(name: "Hello World " + Random().nextInt(100).toString());
 
   final listOfTask = FirebaseFirestore.instance.collection('tasks');
 
@@ -119,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // ),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: createTask(),
+        onPressed: createTask,
         tooltip: 'Firebase',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
@@ -127,6 +133,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   createTask() {
+    var currentTask =
+        AddTask(name: "Hello World " + Random().nextInt(100).toString());
     currentTask.addTask();
   }
 }
