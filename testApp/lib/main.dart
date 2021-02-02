@@ -61,31 +61,44 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final listOfTask = FirebaseFirestore.instance.collection('tasks');
 
+  Widget getError() {
+    return Text("Errro");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Consumer(
-        builder: (context, watch, child) {
-          var list = watch(taskProvider);
-          return list.when(
-            data: (data) => ListView(
-              children: [
-                ...data.docs
-                    .map((e) => ChartLine(
-                          rate: Random().nextDouble(),
-                          title: e.data()['name'],
-                        ))
-                    .toList(),
-              ],
-            ),
-            loading: () => CircularProgressIndicator(),
-            error: () => Text(),
-          );
-        },
+      body: Center(
+        child: Consumer(
+          builder: (context, watch, child) {
+            var list = watch(taskProvider);
+            return ListView.builder(
+              itemCount: list.data.value.docs.length,
+              itemBuilder: (ctxt, int index) {
+                return ChartLine(
+                  rate: Random().nextDouble(),
+                  title: list.data.value.docs[index]
+                      ['name'], //list.data.value.toString(),
+                );
+              },
+
+              // children: [
+              //   list.map(
+              //     data: (_) => ChartLine(
+              //         rate: Random().nextDouble(),
+              //         title: _.data.value.docs.first.toString().),
+              //     loading: (_) => CircularProgressIndicator(),
+              //     error: (_) => Text(_.error.toString()),
+              //   ),
+              // ],
+            );
+          },
+        ),
       ),
+
       // body: StreamBuilder<QuerySnapshot>(
       //   stream: listOfTask.snapshots(),
       //   builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
