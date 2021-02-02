@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -14,17 +15,15 @@ void main() async {
   runApp(ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+final taskProvider = StreamProvider((ref) {
+  return FirebaseFirestore.instance.collection('tasks').snapshots();
+});
 
-  final CollectionReference listOfTask =
-      FirebaseFirestore.instance.collection('tasks');
+class MyApp extends StatelessWidget {
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {
-    final taskProvider = StreamProvider(listOfTask.snapshots());
-    //context.read(taskProvider);
     return FutureBuilder(
         future: _initialization,
         builder: (context, snapshot) {
@@ -60,8 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final currentTask = AddTask(name: "Hello World");
 
-  CollectionReference listOfTask =
-      FirebaseFirestore.instance.collection('tasks');
+  final listOfTask = FirebaseFirestore.instance.collection('tasks');
 
   @override
   Widget build(BuildContext context) {
@@ -69,25 +67,44 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-
-      body: StreamBuilder<QuerySnapshot>(
-        stream: listOfTask.snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return Text("Something went Wrong");
-          }
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
-          }
-          //Success
-          return ListView(
-            children: snapshot.data.docs.map((document) {
-              return ChartLine(
-                  rate: Random().nextDouble(), title: document.data()['name']);
-            }).toList(),
+      body: Consumer(
+        builder: (context, watch, child) {
+          var list = watch(taskProvider);
+          return list.when(
+            data: (data) => ListView(
+              children: [
+                ...data.docs
+                    .map((e) => ChartLine(
+                          rate: Random().nextDouble(),
+                          title: e.data()['name'],
+                        ))
+                    .toList(),
+              ],
+            ),
+            loading: () => CircularProgressIndicator(),
+            error: () => Text(),
           );
         },
       ),
+      // body: StreamBuilder<QuerySnapshot>(
+      //   stream: listOfTask.snapshots(),
+      //   builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+      //     if (snapshot.hasError) {
+      //       return Text("Something went Wrong");
+      //     }
+      //     if (snapshot.connectionState == ConnectionState.waiting) {
+      //       return CircularProgressIndicator();
+      //     }
+      //     //Success
+      //     return ListView(
+      //       children: snapshot.data.docs.map((document) {
+      //         return ChartLine(
+      //             rate: Random().nextDouble(), title: document.data()['name']);
+      //       }).toList(),
+      //     );
+      //   },
+      // ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: createTask(),
         tooltip: 'Firebase',
