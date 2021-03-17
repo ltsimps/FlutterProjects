@@ -30,11 +30,15 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   double _size = 100;
   Color _boxColor = Colors.green;
+  double _boxOpacity = 1.0;
+  bool _showBox = false;
 
   void _changeShape() {
     setState(() {
-      _size = _size == 100 ? 200 : 100;
-      _boxColor = _boxColor == Colors.green ? Colors.purple : Colors.green;
+      //_size = _size == 100 ? 200 : 100;
+      //_boxColor = _boxColor == Colors.green ? Colors.purple : Colors.green;
+      //_boxOpacity = _boxOpacity == 1.0 ? 0.0 : 1.0;
+      _showBox = !_showBox;
     });
   }
 
@@ -45,11 +49,16 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title!),
       ),
       body: Center(
-        child: AnimatedContainer(
+        child: AnimatedOpacity(
+          duration: Duration(milliseconds: 1000),
+          opacity: _showBox ? 1.0 : 0.5,
+          child: AnimatedContainer(
             duration: Duration(milliseconds: 1000),
-            width: _size,
-            height: _size,
-            color: _boxColor),
+            width: _showBox ? 200 : 100,
+            height: _showBox ? 200 : 100,
+            color: _showBox ? Colors.purple : Colors.green,
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _changeShape,
