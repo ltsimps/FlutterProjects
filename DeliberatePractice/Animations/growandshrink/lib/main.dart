@@ -29,10 +29,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   double _size = 100;
+  Color _boxColor = Colors.green;
 
   void _changeShape() {
     setState(() {
       _size = _size == 100 ? 200 : 100;
+      _boxColor = _boxColor == Colors.green ? Colors.purple : Colors.green;
     });
   }
 
@@ -43,7 +45,11 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title!),
       ),
       body: Center(
-        child: Container(width: _size, height: _size, color: Colors.green),
+        child: AnimatedContainer(
+            duration: Duration(milliseconds: 1000),
+            width: _size,
+            height: _size,
+            color: _boxColor),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _changeShape,
