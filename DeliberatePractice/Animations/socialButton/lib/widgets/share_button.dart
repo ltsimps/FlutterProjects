@@ -7,14 +7,23 @@ class ShareButton extends StatefulWidget {
 
 class _ShareButtonState extends State<ShareButton> {
   bool isOpen = false;
+
+  _toggleShareButton() {
+    setState(() {
+      isOpen = !isOpen;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(left: 16),
       child: Stack(
         children: [
-          Container(
-            width: 48,
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 350),
+            curve: Curves.fastOutSlowIn,
+            width: isOpen ? 240 : 48,
             height: 48,
             decoration: ShapeDecoration(
               color: Colors.grey[400],
@@ -29,12 +38,14 @@ class _ShareButtonState extends State<ShareButton> {
               shape: BoxShape.circle,
             ),
             child: IconButton(
-              icon: Icon(Icons.share),
-              onPressed: () {},
-            ),
+                icon: Icon(Icons.share),
+                onPressed: () {
+                  _toggleShareButton();
+                }),
           ),
-          Opacity(
-            opacity: 0,
+          AnimatedOpacity(
+            duration: Duration(milliseconds: 350),
+            opacity: isOpen ? 1 : 0,
             child: Container(
               width: 240,
               padding: const EdgeInsets.only(left: 40),
@@ -51,7 +62,9 @@ class _ShareButtonState extends State<ShareButton> {
                     icon: ImageIcon(
                       AssetImage("assets/images/icon-twitter.png"),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      _toggleShareButton();
+                    },
                   ),
                   IconButton(
                     icon: ImageIcon(
