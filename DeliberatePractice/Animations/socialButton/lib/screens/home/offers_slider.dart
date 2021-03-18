@@ -44,7 +44,8 @@ class _OffsersSliderState extends State<OffsersSlider> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            for (int i = 0; i < offers.length; i++) Indicator(isActive: false),
+            for (int i = 0; i < offers.length; i++)
+              Indicator(isActive: _selectedIndex == i ? true : false),
           ],
         ),
       ],
