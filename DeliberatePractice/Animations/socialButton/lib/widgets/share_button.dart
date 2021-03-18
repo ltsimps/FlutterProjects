@@ -7,6 +7,7 @@ class ShareButton extends StatefulWidget {
 
 class _ShareButtonState extends State<ShareButton> {
   bool isOpen = false;
+  static const shareButtonDuration = 350;
 
   _toggleShareButton() {
     setState(() {
@@ -21,7 +22,7 @@ class _ShareButtonState extends State<ShareButton> {
       child: Stack(
         children: [
           AnimatedContainer(
-            duration: const Duration(milliseconds: 350),
+            duration: const Duration(milliseconds: shareButtonDuration),
             curve: Curves.fastOutSlowIn,
             width: isOpen ? 240 : 48,
             height: 48,
@@ -37,14 +38,25 @@ class _ShareButtonState extends State<ShareButton> {
               color: Colors.white,
               shape: BoxShape.circle,
             ),
-            child: IconButton(
-                icon: Icon(Icons.share),
-                onPressed: () {
-                  _toggleShareButton();
-                }),
+            child: AnimatedCrossFade(
+              duration: Duration(milliseconds: shareButtonDuration),
+              firstChild: IconButton(
+                  icon: Icon(Icons.share),
+                  onPressed: () {
+                    _toggleShareButton();
+                  }),
+              secondChild: IconButton(
+                  icon: Icon(Icons.close),
+                  onPressed: () {
+                    _toggleShareButton();
+                  }),
+              crossFadeState: !isOpen
+                  ? CrossFadeState.showFirst
+                  : CrossFadeState.showSecond,
+            ),
           ),
           AnimatedOpacity(
-            duration: Duration(milliseconds: 350),
+            duration: Duration(milliseconds: shareButtonDuration),
             opacity: isOpen ? 1 : 0,
             child: Container(
               width: 240,
