@@ -7,6 +7,7 @@ class OffsersSlider extends StatefulWidget {
 }
 
 class _OffsersSliderState extends State<OffsersSlider> {
+  int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -17,9 +18,26 @@ class _OffsersSliderState extends State<OffsersSlider> {
           child: PageView.builder(
             itemCount: offers.length,
             controller: PageController(viewportFraction: 0.7),
+            onPageChanged: (index) {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
             itemBuilder: (context, index) {
               final offer = offers[index];
-              return Item(offer: offer);
+              final _scale = _selectedIndex == index ? 1.0 : 0.8;
+              //return Item(offer: offer);
+              return TweenAnimationBuilder(
+                  tween: Tween(begin: _scale, end: _scale),
+                  duration: Duration(milliseconds: 350),
+                  curve: Curves.ease,
+                  child: Item(offer: offer),
+                  builder: (context, value, child) {
+                    return Transform.scale(
+                      scale: value,
+                      child: child,
+                    );
+                  });
             },
           ),
         ),
