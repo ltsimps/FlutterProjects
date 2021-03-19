@@ -129,7 +129,8 @@ class Indicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 350),
       height: 6,
       width: isActive ? 22 : 8,
       margin: EdgeInsets.symmetric(horizontal: 4),
