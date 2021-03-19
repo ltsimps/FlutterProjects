@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
 import '../../widgets/input_field_wrapper.dart';
 import '../../widgets/primary_button.dart';
@@ -45,6 +46,7 @@ class _AddCardScreenState extends State<AddCardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double _rotationFactor = _isCvvFocused ? 1.0 : 0.0;
     return Scaffold(
       appBar: AppBar(
         title: Text('Add Card'),
@@ -54,15 +56,36 @@ class _AddCardScreenState extends State<AddCardScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _isCvvFocused
-                ? BackCard(
-                    cvv: formData["cvv"],
-                  )
-                : FrontCard(
-                    cardNumber: formData["card_number"],
-                    cardName: formData["card_name"],
-                    expiryDate: formData["expiry_date"],
-                  ),
+            // _isCvvFocused
+            //     ? BackCard(
+            //         cvv: formData["cvv"],
+            //       )
+            //     : FrontCard(
+            //         cardNumber: formData["card_number"],
+            //         cardName: formData["card_name"],
+            //         expiryDate: formData["expiry_date"],
+            //       ),
+            TweenAnimationBuilder(
+              tween: Tween(begin: _rotationFactor, end: _rotationFactor),
+              duration: Duration(milliseconds: 1000),
+              curve: Curves.fastOutSlowIn,
+              builder: (context, value, child) {
+                return Transform(
+                    transform: Matrix4.identity()
+                      ..setEntry(3, 2, 0.001)
+                      ..rotateY(math.pi * value),
+                    alignment: FractionalOffset.center,
+                    child: value < 0.5
+                        ? FrontCard(
+                            cardNumber: formData['card_number'],
+                            cardName: formData['card_name'],
+                            expiryDate: formData['expiry_date'],
+                          )
+                        : BackCard(
+                            cvv: formData['cvv'],
+                          ));
+              },
+            ),
             Expanded(
               child: ListView(
                 shrinkWrap: true,
