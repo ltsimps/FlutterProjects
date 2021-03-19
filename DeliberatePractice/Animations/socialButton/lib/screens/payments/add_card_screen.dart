@@ -277,41 +277,48 @@ class BackCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 250,
-      decoration: BoxDecoration(
-        color: Colors.grey[300],
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-            child: Text("ELECTRONIC USE ONLY"),
-          ),
-          Container(
-            color: Colors.black,
-            height: 50,
-          ),
-          FractionallySizedBox(
-            widthFactor: 0.8,
-            child: Container(
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.only(right: 16),
-              alignment: Alignment.centerRight,
-              color: Colors.grey,
+    return Transform(
+      transform: Matrix4.identity()
+        ..setEntry(3, 2, 0.001)
+        ..rotateY(math.pi),
+      alignment: FractionalOffset.center,
+      child: Container(
+        height: 250,
+        decoration: BoxDecoration(
+          color: Colors.grey[300],
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+              child: Text("ELECTRONIC USE ONLY"),
+            ),
+            Container(
+              color: Colors.black,
               height: 50,
-              child: Text(
-                cvv,
-                style: Theme.of(context).textTheme.headline5.copyWith(
-                      color: Colors.black,
-                      fontStyle: FontStyle.italic,
-                    ),
+            ),
+            FractionallySizedBox(
+              widthFactor: 0.8,
+              child: Container(
+                margin: const EdgeInsets.all(16),
+                padding: const EdgeInsets.only(right: 16),
+                alignment: Alignment.centerRight,
+                color: Colors.grey,
+                height: 50,
+                child: Text(
+                  cvv,
+                  style: Theme.of(context).textTheme.headline5.copyWith(
+                        color: Colors.black,
+                        fontStyle: FontStyle.italic,
+                      ),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
