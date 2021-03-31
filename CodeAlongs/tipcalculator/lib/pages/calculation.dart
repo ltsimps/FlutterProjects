@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:tipcalculator/models/calculator.dart';
+import 'package:tipcalculator/widgets/totals.dart';
 
 class Calculation extends StatefulWidget {
   @override
@@ -6,25 +9,151 @@ class Calculation extends StatefulWidget {
 }
 
 class _CalculationState extends State<Calculation> {
+  late Calculator calc;
+
+  Calculator updateBillTotal(double amount, double percent, int split) {
+    setState(() {
+      calc =
+          Calculator(amount: amount, tipPercentage: percent, splitAmt: split);
+    });
+    return calc;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(
-            'Tip Calculator',
-            style: TextStyle(color: Colors.white54),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Color(0xffEB9079),
+              ),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20, bottom: 10),
+                    child: Text(
+                      'Tip Calculator',
+                      style: TextStyle(color: Colors.white54, fontSize: 25),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10.0),
+                    child: Text(
+                      'Total',
+                      style: TextStyle(color: Colors.white54, fontSize: 18),
+                    ),
+                  ),
+                  TextFormField(
+                    onChanged: (text) => {print(text)},
+                    style: TextStyle(color: Colors.white54, fontSize: 25),
+                    initialValue: "0",
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                        color: Colors.white54,
+                      )),
+                      labelStyle: TextStyle(color: Colors.white54),
+                      icon: Icon(
+                        Icons.attach_money_rounded,
+                        color: Colors.white54,
+                      ),
+                    ),
+                  ),
+                  Totals(currentCalculation: updateBillTotal(1, 1, 1))
+                ],
+              ),
+            ),
           ),
-          Text('Total'),
-          TextFormField(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text("Bill total"),
-              Text("Split Total"),
-            ],
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xffDBBFB8),
+                    ),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20, bottom: 10),
+                          child: Text(
+                            'Tip',
+                            style:
+                                TextStyle(color: Colors.white54, fontSize: 25),
+                          ),
+                        ),
+                        TextFormField(
+                          onChanged: (text) => {print(text)},
+                          style: TextStyle(color: Colors.white54, fontSize: 25),
+                          initialValue: "15",
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                              color: Colors.white54,
+                            )),
+                            labelStyle: TextStyle(color: Colors.white54),
+                            icon: Icon(
+                              Icons.attach_money_rounded,
+                              color: Colors.white54,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xff528BA1),
+                    ),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20, bottom: 10),
+                          child: Text(
+                            'Split',
+                            style:
+                                TextStyle(color: Colors.white54, fontSize: 25),
+                          ),
+                        ),
+                        TextFormField(
+                          onChanged: (text) => {print(text)},
+                          style: TextStyle(color: Colors.white54, fontSize: 25),
+                          initialValue: "0",
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                              color: Colors.white54,
+                            )),
+                            labelStyle: TextStyle(color: Colors.white54),
+                            icon: Icon(
+                              Icons.attach_money_rounded,
+                              color: Colors.white54,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-          Row()
         ],
       ),
     );

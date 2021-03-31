@@ -33,9 +33,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-          color: Color(0xffECA997),
-        ),
         child: Calculation(),
       ),
     );
