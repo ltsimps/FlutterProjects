@@ -8,26 +8,40 @@ class Totals extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-      Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Bill Total"),
-            Text("${currentCalculation.returnTipAmount()}")
-          ],
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+        Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Bill Total",
+                style: TextStyle(color: Colors.white54, fontSize: 20),
+              ),
+              Text(
+                "${currentCalculation.returnTipAmount()}",
+                style: TextStyle(color: Colors.white54, fontSize: 30),
+              )
+            ],
+          ),
         ),
-      ),
-      Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Split Total"),
-            Text(
-                "${currentCalculation.splitAmt == 1 ? 0 : currentCalculation.returnTipAmount() / currentCalculation.splitAmt}")
-          ],
+        Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Split Total",
+                style: TextStyle(color: Colors.white54, fontSize: 20),
+              ),
+              Text(
+                "${currentCalculation.splitAmt == 1 ? 0 : currentCalculation.returnTipAmount() / currentCalculation.splitAmt}",
+                style: TextStyle(color: Colors.white54, fontSize: 25),
+              ),
+            ],
+          ),
         ),
-      ),
-    ]);
+      ]),
+    );
   }
 }
