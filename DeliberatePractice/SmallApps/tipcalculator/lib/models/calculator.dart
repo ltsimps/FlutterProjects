@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 class Calculator {
   final amount;
   final tipPercentage;
-  final splitAmt;
+  var splitAmt;
 
   Calculator(
-      {this.tipPercentage = 0, this.splitAmt = 0, @required this.amount});
+      {this.tipPercentage = 0, this.splitAmt = 1, @required this.amount});
 
   double returnTipAmount() {
-    print("Amount  $amount");
-    return amount * tipPercentage;
+    if (splitAmt <= 0) {
+      splitAmt = 1;
+    }
+    return (amount + (amount * tipPercentage / 100));
   }
 }

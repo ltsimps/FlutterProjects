@@ -24,6 +24,7 @@ class _CalculationState extends State<Calculation> {
   Widget build(BuildContext context) {
     double newAmt;
     double tipAmt;
+    int splitAmt;
 
     return SafeArea(
       child: Column(
@@ -104,7 +105,7 @@ class _CalculationState extends State<Calculation> {
                                 tipAmt.toDouble(), calc.splitAmt)
                           },
                           style: TextStyle(color: Colors.white54, fontSize: 25),
-                          initialValue: "15",
+                          initialValue: "15.0",
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             enabledBorder: UnderlineInputBorder(
@@ -141,9 +142,13 @@ class _CalculationState extends State<Calculation> {
                           ),
                         ),
                         TextFormField(
-                          onChanged: (text) => {print(text)},
+                          onChanged: (text) => {
+                            splitAmt = int.parse(text),
+                            updateBillTotal(calc.amount.toDouble(),
+                                calc.tipPercentage.toDouble(), splitAmt.toInt())
+                          },
                           style: TextStyle(color: Colors.white54, fontSize: 25),
-                          initialValue: "0",
+                          initialValue: "1",
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             enabledBorder: UnderlineInputBorder(

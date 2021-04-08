@@ -23,7 +23,8 @@ class Totals extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("Split Total"),
-            Text("${currentCalculation.returnTipAmount()}")
+            Text(
+                "${currentCalculation.splitAmt == 1 ? 0 : currentCalculation.returnTipAmount() / currentCalculation.splitAmt}")
           ],
         ),
       ),
