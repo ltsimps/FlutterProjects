@@ -16,7 +16,6 @@ class _CalculationState extends State<Calculation> {
       calc =
           Calculator(amount: amount, tipPercentage: percent, splitAmt: split);
     });
-    print("tip amount ${calc.returnTipAmount()}");
     return calc;
   }
 
@@ -31,6 +30,7 @@ class _CalculationState extends State<Calculation> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Expanded(
+            flex: 2,
             child: Container(
               decoration: BoxDecoration(
                 color: Color(0xffEB9079),
@@ -48,28 +48,34 @@ class _CalculationState extends State<Calculation> {
                     padding: const EdgeInsets.only(bottom: 10.0),
                     child: Text(
                       'Total',
+                      textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white54, fontSize: 18),
                     ),
                   ),
-                  TextFormField(
-                    onChanged: (text) => {
-                      newAmt = double.parse(text),
-                      // print(newAmt.runtimeType),
-                      updateBillTotal(newAmt, (calc.tipPercentage).toDouble(),
-                          calc.splitAmt)
-                    },
-                    style: TextStyle(color: Colors.white54, fontSize: 25),
-                    initialValue: "0.00",
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                        color: Colors.white54,
-                      )),
-                      labelStyle: TextStyle(color: Colors.white54),
-                      icon: Icon(
-                        Icons.attach_money_rounded,
-                        color: Colors.white54,
+                  SizedBox(
+                    width: 340, //MediaQuery.of(context).size.width,
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      onChanged: (text) => {
+                        newAmt = double.parse(text),
+                        // print(newAmt.runtimeType),
+                        updateBillTotal(newAmt, (calc.tipPercentage).toDouble(),
+                            calc.splitAmt)
+                      },
+                      style: TextStyle(color: Colors.white54, fontSize: 25),
+                      initialValue: "\$ 0.00",
+                      keyboardType:
+                          TextInputType.numberWithOptions(decimal: true),
+                      decoration: InputDecoration(
+                        enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                          color: Colors.white54,
+                        )),
+                        labelStyle: TextStyle(color: Colors.white54),
+                        // icon: Icon(
+                        //   Icons.attach_money_rounded,
+                        //   color: Colors.white54,
+                        // ),
                       ),
                     ),
                   ),
@@ -79,6 +85,7 @@ class _CalculationState extends State<Calculation> {
             ),
           ),
           Expanded(
+            flex: 1,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
