@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_foundations/range_selector_form.dart';
 
 class RangeSelectorPage extends StatefulWidget {
   RangeSelectorPage({
@@ -12,6 +13,7 @@ class RangeSelectorPage extends StatefulWidget {
 class _RangeSelectorPageState extends State<RangeSelectorPage> {
   int _min = 0;
   int _max = 0;
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -20,57 +22,22 @@ class _RangeSelectorPageState extends State<RangeSelectorPage> {
         title: Text('Select Range'),
         centerTitle: true,
       ),
-      body: Form(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              RangeSelectorTextFormField(
-                labelText: 'Minimum',
-                intValueSetter: (value) => _min = value,
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              RangeSelectorTextFormField(
-                labelText: 'Maximum',
-                intValueSetter: (value) => _max = value,
-              ),
-            ],
-          ),
-        ),
+      body: RangeSelectorForm(
+        maxValueSetter: (value) => _max = value,
+        minValueSetter: (value) => _min = value,
+        key: formKey,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           //TODO: validate the form
           //TODO: Navigate to the generator page
+          if (formKey.currentState?.validate() == true) {
+            formKey.currentState?.save();
+          }
+          ;
         },
         child: Icon(Icons.arrow_forward),
       ),
-    );
-  }
-}
-
-class RangeSelectorTextFormField extends StatelessWidget {
-  const RangeSelectorTextFormField(
-      {Key? key, required this.labelText, required this.intValueSetter})
-      : super(key: key);
-
-  final String labelText;
-  final void Function(int value) intValueSetter;
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: labelText,
-      ),
-      keyboardType: TextInputType.numberWithOptions(
-        decimal: false,
-        signed: true,
-      ),
-      onSaved: (newValue) => intValueSetter(int.parse(newValue ?? '')),
     );
   }
 }

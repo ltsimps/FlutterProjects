@@ -33,6 +33,7 @@ class _AnimatedContainerPageState extends State<AnimatedContainerPage> {
       body: Center(
         child: AnimatedContainer(
           duration: Duration(seconds: 1),
+          curve: Curves.easeInCubic,
           // Use the properties stored in the State class.
           width: _width,
           height: _height,
