@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_foundations/randomizer_page.dart';
 import 'package:flutter_foundations/range_selector_form.dart';
 
 class RangeSelectorPage extends StatefulWidget {
@@ -29,12 +30,26 @@ class _RangeSelectorPageState extends State<RangeSelectorPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          //TODO: validate the form
-          //TODO: Navigate to the generator page
           if (formKey.currentState?.validate() == true) {
             formKey.currentState?.save();
           }
-          ;
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => RandomizerPage(
+          //       min: _min,
+          //       max: _max,
+          //     ),
+          //   ),
+          // );
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => RandomizerPage(
+                min: _min,
+                max: _max,
+              ),
+            ),
+          );
         },
         child: Icon(Icons.arrow_forward),
       ),
