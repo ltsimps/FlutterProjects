@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_foundations/randomizer_page.dart';
 import 'package:flutter_foundations/range_selector_form.dart';
+import 'package:flutter_foundations/ranomizer_change_notifier.dart';
+import 'package:provider/provider.dart';
 
 class RangeSelectorPage extends StatefulWidget {
   RangeSelectorPage({
@@ -12,8 +14,6 @@ class RangeSelectorPage extends StatefulWidget {
 }
 
 class _RangeSelectorPageState extends State<RangeSelectorPage> {
-  int _min = 0;
-  int _max = 0;
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -24,9 +24,7 @@ class _RangeSelectorPageState extends State<RangeSelectorPage> {
         centerTitle: true,
       ),
       body: RangeSelectorForm(
-        maxValueSetter: (value) => _max = value,
-        minValueSetter: (value) => _min = value,
-        key: formKey,
+        formKey: formKey,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -45,8 +43,8 @@ class _RangeSelectorPageState extends State<RangeSelectorPage> {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => RandomizerPage(
-                min: _min,
-                max: _max,
+                min: context.read<RandomizerChangeNotifier>().min,
+                max: context.read<RandomizerChangeNotifier>().max,
               ),
             ),
           );
